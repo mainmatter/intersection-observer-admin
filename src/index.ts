@@ -66,6 +66,11 @@ export default class IntersectionObserverAdmin extends Notifications {
         matchingRootEntry.elements.splice(elIndex, 1);
       }
       this.removeElement(target);
+   
+     // console.log(matchingRootEntry);
+     // if (matchingRootEntry.elements.length === 0) {
+     //   this.removeElement(options.root as any || window);
+     // }
     }
   }
 
