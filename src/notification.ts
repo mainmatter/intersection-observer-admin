@@ -41,10 +41,10 @@ export default abstract class Notifications {
   public removeElementNotification(element: HTMLElement | Window) {
     const a = this.registry.getElement(element);
 
-    console.log(a);
-    a.enter = null;
-    a.exit = null;
-
+    if (a) {
+      a.enter = null;
+      a.exit = null;
+    }
 
     this.registry.removeElement(element);
   }
