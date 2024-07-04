@@ -63,25 +63,6 @@ export default class IntersectionObserverAdmin extends Notifications {
     }
   }
 
-  private clearStuff(target: HTMLElement, rootState: StateForRoot) {
-    const { intersectionObserver } = rootState;
-    intersectionObserver.unobserve(target);
-
-    if (rootState.elements) {
-      rootState.elements = rootState.elements.filter(
-        (el: any) => el !== target
-      );
-    }
-    this.removeElement(target);
-
-    const windowRoot = this.elementRegistry.getElement(window);
-    if (windowRoot && windowRoot.elements) {
-      windowRoot.elements = windowRoot.elements.filter(
-        (el: any) => el !== target
-      );
-    }
-  }
-
   /**
    * register event to handle when intersection observer detects enter
    *
@@ -424,5 +405,24 @@ export default class IntersectionObserverAdmin extends Notifications {
     };
 
     return JSON.stringify(options, replacer);
+  }
+
+  private clearStuff(target: HTMLElement, rootState: StateForRoot) {
+    const { intersectionObserver } = rootState;
+    intersectionObserver.unobserve(target);
+
+    if (rootState.elements) {
+      rootState.elements = rootState.elements.filter(
+        (el: any) => el !== target
+      );
+    }
+    this.removeElement(target);
+
+    const windowRoot = this.elementRegistry.getElement(window);
+    if (windowRoot && windowRoot.elements) {
+      windowRoot.elements = windowRoot.elements.filter(
+        (el: any) => el !== target
+      );
+    }
   }
 }
