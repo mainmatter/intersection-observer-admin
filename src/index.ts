@@ -1,5 +1,5 @@
-import Notifications, { CallbackType } from "./notification";
-import Registry from "./registry";
+import Notifications, { CallbackType } from './notification';
+import Registry from './registry';
 
 export interface IOptions {
   root?: HTMLElement;
@@ -376,11 +376,11 @@ export default class IntersectionObserverAdmin extends Notifications {
     const type2 = Object.prototype.toString.call(b);
     if (type1 !== type2) {
       return false;
-    } else if (type1 !== "[object Object]" && type2 !== "[object Object]") {
+    } else if (type1 !== '[object Object]' && type2 !== '[object Object]') {
       return a === b;
     }
 
-    if (a && b && typeof a === "object" && typeof b === "object") {
+    if (a && b && typeof a === 'object' && typeof b === 'object') {
       // complex comparison for only type of [object Object]
       for (const key in a) {
         if (Object.prototype.hasOwnProperty.call(a, key)) {
@@ -408,12 +408,12 @@ export default class IntersectionObserverAdmin extends Notifications {
     const { root } = options;
 
     const replacer = (key: string, value: string): string => {
-      if (key === "root" && root) {
+      if (key === 'root' && root) {
         const classList = Array.prototype.slice.call(root.classList);
 
         const classToken = classList.reduce((acc, item) => {
           return (acc += item);
-        }, "");
+        }, '');
 
         const id: string = root.id;
 
