@@ -1,5 +1,5 @@
-import Notifications, { CallbackType } from './notification';
-import Registry from './registry';
+import Notifications, { CallbackType } from "./notification";
+import Registry from "./registry";
 
 export interface IOptions {
   root?: HTMLElement;
@@ -59,13 +59,26 @@ export default class IntersectionObserverAdmin extends Notifications {
       | undefined = this.findMatchingRootEntry(options);
 
     if (matchingRootEntry) {
-      const { intersectionObserver } = matchingRootEntry;
-      intersectionObserver.unobserve(target);
-      const elIndex = matchingRootEntry.elements.indexOf(target);
-      if (elIndex !== -1) {
-        matchingRootEntry.elements.splice(elIndex, 1);
-      }
-      this.removeElement(target);
+      this.clearStuff(target, matchingRootEntry);
+    }
+  }
+
+  private clearStuff(target: HTMLElement, rootState: StateForRoot) {
+    const { intersectionObserver } = rootState;
+    intersectionObserver.unobserve(target);
+
+    if (rootState.elements) {
+      rootState.elements = rootState.elements.filter(
+        (el: any) => el !== target
+      );
+    }
+    this.removeElement(target);
+
+    const windowRoot = this.elementRegistry.getElement(window);
+    if (windowRoot && windowRoot.elements) {
+      windowRoot.elements = windowRoot.elements.filter(
+        (el: any) => el !== target
+      );
     }
   }
 
@@ -363,11 +376,11 @@ export default class IntersectionObserverAdmin extends Notifications {
     const type2 = Object.prototype.toString.call(b);
     if (type1 !== type2) {
       return false;
-    } else if (type1 !== '[object Object]' && type2 !== '[object Object]') {
+    } else if (type1 !== "[object Object]" && type2 !== "[object Object]") {
       return a === b;
     }
 
-    if (a && b && typeof a === 'object' && typeof b === 'object') {
+    if (a && b && typeof a === "object" && typeof b === "object") {
       // complex comparison for only type of [object Object]
       for (const key in a) {
         if (Object.prototype.hasOwnProperty.call(a, key)) {
@@ -395,12 +408,12 @@ export default class IntersectionObserverAdmin extends Notifications {
     const { root } = options;
 
     const replacer = (key: string, value: string): string => {
-      if (key === 'root' && root) {
+      if (key === "root" && root) {
         const classList = Array.prototype.slice.call(root.classList);
 
         const classToken = classList.reduce((acc, item) => {
           return (acc += item);
-        }, '');
+        }, "");
 
         const id: string = root.id;
 
