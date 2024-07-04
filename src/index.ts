@@ -60,6 +60,14 @@ export default class IntersectionObserverAdmin extends Notifications {
 
     if (matchingRootEntry) {
       this.clearStuff(target, matchingRootEntry);
+    } else {
+      const windowRoot = this.elementRegistry.getElement(window);
+      if (windowRoot && windowRoot.elements) {
+        windowRoot.elements = windowRoot.elements.filter(
+          (el: any) => el !== target
+        );
+      }
+      this.removeElement(target);
     }
   }
 
