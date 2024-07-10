@@ -57,11 +57,16 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "ts-jest": "^24.1.0",
+    "tslib": "^2.6.3",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.6.3"
+    "typescript": "^4.6.3"
   },
-  "dependencies": {}
+  "overrides": {
+    "tslint-eslint-rules": {
+      "typescript": "^4.6.3"
+    }
+  }
 }
